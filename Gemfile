@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.2.6'
+ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
+  gem "better_errors"
   gem 'sqlite3'
 end
 group :production do
@@ -41,6 +42,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'pry-rails'
 end
 
 group :development do
