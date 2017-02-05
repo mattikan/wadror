@@ -4,6 +4,9 @@ class Brewery < ActiveRecord::Base
 
   include RatingAverage
 
+  validates :name, presence: true
+  validates :year, numericality: { greater_than: 1041, less_than: 2018 }
+
   def print_report
     puts name
     puts "established in #{year}"
