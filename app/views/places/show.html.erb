@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<h2>
+  <%= @place.name %>
+</h2>
+<% if @place %>
+
+    <p><td><%=@place.street %></td></p>
+    <p><td><%=@place.zip%> <%=@place.city%></td></p>
+    <p><td><%=@place.phone%></td></p>
+
+<% end %>
