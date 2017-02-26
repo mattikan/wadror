@@ -1,11 +1,12 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
-  
+
   # GET /breweries
   # GET /breweries.json
   def index
-    @breweries = Brewery.all
+    @active_breweries = Brewery.active
+    @retired_breweries = Brewery.retired
   end
 
   # GET /breweries/1
@@ -31,7 +32,7 @@ class BreweriesController < ApplicationController
       if @brewery.save
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
         format.json { render :show, status: :created, location: @brewery }
-      else    
+      else
         format.html { render :new }
         format.json { render json: @brewery.errors, status: :unprocessable_entity }
       end
@@ -63,14 +64,14 @@ class BreweriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brewery_params
-      params.require(:brewery).permit(:name, :year)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brewery_params
+    params.require(:brewery).permit(:name, :year, :active)
+  end
 
 end

@@ -1,10 +1,129 @@
-<h2>List of ratings</h2>
+<h2>Ratings statistics</h2>
 
-<p>Total of <%= Rating.count %> ratings given</p>
+<h3>Top 3 breweries</h3>
 
-<ul>
+<ul class="list-group">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Average rating</th>
+      <th>Number of ratings</th>
+      <th>Year</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% Brewery.top(3).each do |brewery| %>
+        <tr>
+          <td><%= link_to brewery.name, brewery %></td>
+          <td><%= brewery.average_rating %></td>
+          <td><%= brewery.ratings.count %></td>
+          <td><%= brewery.year %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</ul>
+
+<h3>Top 3 beers</h3>
+
+<ul class="list-group">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Average rating</th>
+      <th>Number of ratings</th>
+      <th>Style</th>
+      <th>Brewery</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% Beer.top(3).each do |beer| %>
+        <tr>
+          <td><%= link_to beer.name, beer %></td>
+          <td><%= beer.average_rating %></td>
+          <td><%= beer.ratings.count %></td>
+          <td><%= beer.style.name %></td>
+          <td><%= beer.brewery.name %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</ul>
+
+<h3>Top 3 styles</h3>
+
+<ul class="list-group">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Average rating</th>
+      <th>Number of beers</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% Style.top(3).each do |style| %>
+        <tr>
+          <td><%= link_to style.name, style %></td>
+          <td><%= style.description %></td>
+          <td><%= style.average_rating %></td>
+          <td><%= style.ratings.count %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</ul>
+
+<h3>Top 3 busiest users</h3>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Number of ratings</th>
+    <th>Favourite beer</th>
+    <th>Favourite brewery</th>
+    <th>Favourite style</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% User.top.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td>
+        <td><%= user.ratings.count %> ratings</td>
+        <td><%= user.favorite_beer.name %></td>
+        <td><%= user.favorite_brewery.name %></td>
+        <td><%= user.favorite_style %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h3>5 most recent ratings</h3>
+
+<ul class="list-group">
+  <% @ratings.recent.each do |rating| %>
+      <li class="list-group-item">
+        <span class="badge"><%= rating.score %></span>
+        <%= rating.beer.name %>, rated by <%= link_to rating.user.username, rating.user %>
+      </li>
+  <% end %>
+</ul>
+
+<h3>Total of <%= Rating.count %> ratings given</h3>
+
+<ul class="list-group">
   <% @ratings.each do |rating| %>
-    <li> <%= rating %> <%= link_to rating.user.username, rating. user %> </li>
+      <li class="list-group-item">
+        <span class="badge"><%= rating.score %></span>
+        <%= rating.beer.name %>, rated by <%= link_to rating.user.username, rating.user %>
+      </li>
   <% end %>
 </ul>
 
